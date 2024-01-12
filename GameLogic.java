@@ -179,43 +179,63 @@ public class GameLogic implements PlayableLogic {
             }
         }
     }
-    private void inthecorner(Position a, Position b){
-        Piece [] neighboring = neighbors(getPieceAtPosition(b));
-        Piece p2 = getPieceAtPosition(b);
-        if (b._x == 1){
-            if (neighboring[3] != null && neighboring[3].getOwner() != p2.getOwner()){
-                board[b._x - 1][b._y] = null;
-            }
-        }
-        if (b._x == 9){
-            if (neighboring[1] != null && neighboring[1].getOwner() != p2.getOwner()){
-                board[b._x + 1][b._y] = null;
-            }
-        }
-        if(b._y == 9){
-            if (neighboring[0] != null && neighboring[0].getOwner() != p2.getOwner()){
-                board[b._x][b._y + 1] = null;
-            }
-        }
-        if(b._y == 1){
-            if (neighboring[2] != null && neighboring[2].getOwner() != p2.getOwner()){
-                board[b._x][b._y - 1] = null;
-            }
-        }
-    }
-    private boolean kingdead(){
-        Piece [] neighboring = neighbors(king);
-        for (int i = 0; i < neighboring.length; i++) {
-            if (neighboring[i] != null && neighboring[i].getOwner() == player2){
-                if (i == 3) {
-                    reset();
-                    player2.addWins();
-                    return true;
+     private void inthecorner(Position a, Position b){
+            Piece [] neighboring = neighbors(getPieceAtPosition(b));
+            Piece p2 = getPieceAtPosition(b);
+            if (p2 != king) {
+                if (b._x == 1) {
+                    if (neighboring[3] != null && neighboring[3].getOwner() != p2.getOwner()) {
+                        board[b._x - 1][b._y] = null;
+                    }
+                }
+                if (b._x == 9) {
+                    if (neighboring[1] != null && neighboring[1].getOwner() != p2.getOwner()) {
+                        board[b._x + 1][b._y] = null;
+                    }
+                }
+                if (b._y == 9) {
+                    if (neighboring[0] != null && neighboring[0].getOwner() != p2.getOwner()) {
+                        board[b._x][b._y + 1] = null;
+                    }
+                }
+                if (b._y == 1) {
+                    if (neighboring[2] != null && neighboring[2].getOwner() != p2.getOwner()) {
+                        board[b._x][b._y - 1] = null;
+                    }
                 }
             }
         }
-        return false;
-    }
+    
+         private boolean kingdead(){
+            Piece [] neighboring = neighbors(king);
+            for (int i = 0; i < neighboring.length; i++) {
+                if(neighboring[i] == null || neighboring[i].getOwner() == player1){
+                    break;
+                }
+                if (neighboring[i].getOwner() == player2){
+                    if (i == 3) {
+                        reset();
+                        player2.addWins();
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+    
+    // private boolean kingdead(){
+    //     Piece [] neighboring = neighbors(king);
+    //     for (int i = 0; i < neighboring.length; i++) {
+    //         if (neighboring[i] != null && neighboring[i].getOwner() == player2){
+    //             if (i == 3) {
+    //                 reset();
+    //                 player2.addWins();
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
     private boolean kingincorner(){
         Position p = getpos(king);
