@@ -168,11 +168,11 @@ public class GameLogic implements PlayableLogic {
                     Piece tar= neighboring[i];
                     Piece [] nearby = neighbors(tar);
                     if (tar != king && nearby[1] != null && nearby[3] != null && nearby[1].getOwner() != tar.getOwner() && nearby[3].getOwner() != tar.getOwner()){
-                        Position sandal = getpos(tar);
-                        board[sandal._x][sandal._y] = null;
+                        Position position = getpos(tar);
+                        board[position._x][sandal._y] = null;
                     }
                     if (tar != king && nearby[0] != null && nearby[2] != null && nearby[0].getOwner() != tar.getOwner() && nearby[2].getOwner() != tar.getOwner()) {
-                        Position sandal = getpos(tar);
+                        Position position = getpos(tar);
                         board[sandal._x][sandal._y] = null;
                     }
                 }
